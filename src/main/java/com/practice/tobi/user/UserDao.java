@@ -5,8 +5,18 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.annotation.Bean;
+
 public class UserDao {
     private ConnectionMaker connectionMaker;
+
+    // @Bean
+    // public UserDao userDao(){
+    //     UserDao userDao = new UserDao();
+    //     userDao.setConnectionMaker(connectionMaker());
+    //     return userDao;
+    // }
 
     protected UserDao(ConnectionMaker connectionMaker) {
         this.connectionMaker = connectionMaker;
