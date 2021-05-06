@@ -7,9 +7,10 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 public class UserDaoTest {
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
+        ApplicationContext context = new AnnotationConfigApplicationContext(DaoFactory.class);
         ConnectionMaker connectionMaker = new DConnectionMaker();
 
-        UserDao userDao = new DaoFactory().userDao();
+        UserDao userDao = context.getBean("userDao", UserDao.class);
 
         User user = new User();
         user.setId("sally");
