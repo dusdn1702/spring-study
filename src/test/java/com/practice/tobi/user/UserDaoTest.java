@@ -1,12 +1,14 @@
 package com.practice.tobi.user;
 
 
+import static org.assertj.core.api.Assertions.*;
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 
 import java.sql.SQLException;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.context.config.InactiveConfigDataAccessException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
@@ -58,5 +60,19 @@ public class UserDaoTest {
 
         userDao.add(user3);
         assertThat(userDao.getCount(), is(3));
+    }
+
+    @Test
+    void getUserFailure() throws SQLException, ClassNotFoundException {
+        ApplicationContext context = new AnnotationConfigApplicationContext(DaoFactory.class);
+        ConnectionMaker connectionMaker = new DConnectionMaker();
+
+        UserDao userDao = context.getBean("userDao", UserDao.class);
+
+        userDao.deleteAll();
+        assertThat(userDao.getCount(), is(0));
+
+        assertThatThrownBy(()-> userDao.get("nope")).isInstanceOf(IllegalAccessError.class);
+
     }
 }
