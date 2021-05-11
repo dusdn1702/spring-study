@@ -11,12 +11,6 @@ import org.springframework.context.annotation.Bean;
 public class UserDao {
     private ConnectionMaker connectionMaker;
 
-    // @Bean
-    // public UserDao userDao(){
-    //     UserDao userDao = new UserDao();
-    //     userDao.setConnectionMaker(connectionMaker());
-    //     return userDao;
-    // }
 
     protected UserDao(ConnectionMaker connectionMaker) {
         this.connectionMaker = connectionMaker;
@@ -54,4 +48,5 @@ public class UserDao {
 
         return user;
     }
+
 }

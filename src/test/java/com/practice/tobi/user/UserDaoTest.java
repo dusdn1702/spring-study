@@ -22,9 +22,13 @@ public class UserDaoTest {
         System.out.println(user.getId() + " 추가");
 
         User user2 = userDao.get(user.getId());
-        System.out.println(user2.getName());
-        System.out.println(user2.getPassword());
 
-        System.out.println(user2.getId() + " 조회");
+        if(!user2.getName().equals(user2.getName())) {
+            System.out.println("테스트 실패 - 이름");
+        } else if(!user.getPassword().equals(user2.getPassword())) {
+            System.out.println("테스트 실패 - 비밀번호");
+        } else {
+            System.out.println("조회 테스트 성공");
+        }
     }
 }
