@@ -21,14 +21,20 @@ public class UserDaoTest {
         userDao.deleteAll();
         assertThat(userDao.getCount(), is(0));
 
-        User user = new User("hi", "je;;", "wer");
+        User user1 = new User("hi","asdf","sleep");
+        User user2 = new User("hello","zxcv","happy");
 
-        userDao.add(user);
-        assertThat(userDao.getCount(), is(1));
+        userDao.add(user1);
+        userDao.add(user2);
+        assertThat(userDao.getCount(), is(2));
 
-        User user2 = userDao.get(user.getId());
+        User get1 = userDao.get(user1.getId());
+        assertThat(user1.getName(), is(get1.getName()));
+        assertThat(user1.getPassword(), is(get1.getPassword()));
 
-        assertThat(user2.getName(), is(user.getName()));
+        User get2 = userDao.get(user2.getId());
+        assertThat(user2.getName(), is(get2.getName()));
+        assertThat(user2.getPassword(), is(get2.getPassword()));
     }
 
     @Test
