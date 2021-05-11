@@ -1,12 +1,18 @@
 package com.practice.tobi.user;
 
+
+import static org.hamcrest.MatcherAssert.*;
+import static org.hamcrest.Matchers.*;
+
 import java.sql.SQLException;
 
+import org.junit.jupiter.api.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class UserDaoTest {
-    public static void main(String[] args) throws ClassNotFoundException, SQLException {
+    @Test
+    public void addAndGet() throws SQLException, ClassNotFoundException {
         ApplicationContext context = new AnnotationConfigApplicationContext(DaoFactory.class);
         ConnectionMaker connectionMaker = new DConnectionMaker();
 
@@ -23,12 +29,6 @@ public class UserDaoTest {
 
         User user2 = userDao.get(user.getId());
 
-        if(!user2.getName().equals(user2.getName())) {
-            System.out.println("테스트 실패 - 이름");
-        } else if(!user.getPassword().equals(user2.getPassword())) {
-            System.out.println("테스트 실패 - 비밀번호");
-        } else {
-            System.out.println("조회 테스트 성공");
-        }
+        assertThat(user2.getName(), is(user.getName()));
     }
 }
