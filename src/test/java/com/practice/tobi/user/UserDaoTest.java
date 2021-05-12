@@ -15,6 +15,9 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 public class UserDaoTest {
     private UserDao dao;
+    private User user1;
+    private User user2;
+    private User user3;
 
     @BeforeEach
     private void setUp() {
@@ -22,11 +25,14 @@ public class UserDaoTest {
         ConnectionMaker connectionMaker = new DConnectionMaker();
 
         this.dao = context.getBean("userDao", UserDao.class);
+
+        this.user1 = new User("hi","asdf","sleep");
+        this.user2 = new User("hello","zxcv","happy");
+        this.user3 = new User("bye","qwer","sad");
     }
 
     @Test
     public void addAndGet() throws SQLException, ClassNotFoundException {
-
         dao.deleteAll();
         assertThat(dao.getCount(), is(0));
 
@@ -48,10 +54,6 @@ public class UserDaoTest {
 
     @Test
     void count() throws SQLException, ClassNotFoundException {
-        User user1 = new User("hi","asdf","sleep");
-        User user2 = new User("hello","zxcv","happy");
-        User user3 = new User("bye","qwer","sad");
-
         dao.deleteAll();
         assertThat(dao.getCount(), is(0));
 
@@ -67,8 +69,6 @@ public class UserDaoTest {
 
     @Test
     void getUserFailure() throws SQLException, ClassNotFoundException {
-        setUp();
-
         dao.deleteAll();
         assertThat(dao.getCount(), is(0));
 
